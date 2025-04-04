@@ -9,6 +9,19 @@ const folderCustomNames = {
   "PAL_DOC_GIT_repotransfer_EN": "Patronale Life Git Repo Transfer English"
 };
 
+// Function to check if a file matches the current language
+function isCorrectLanguage(fileName) {
+  if (currentLanguage === "EN") {
+    return !fileName.includes("_NL.md") && !fileName.includes("_FR.md");
+  }
+  return fileName.endsWith(`_${currentLanguage}.md`);
+}
+
+// Function to remove language suffix from file names
+function cleanFileName(fileName) {
+  return fileName.replace(/(_EN|_NL|_FR)?\.md$/, "");
+}
+
 // Function to load Markdown file into content area
 function loadMarkdown(filePath) {
   const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
@@ -26,14 +39,6 @@ function loadMarkdown(filePath) {
     .catch(error => {
       document.getElementById('content').innerHTML = `<p>${error}</p>`;
     });
-}
-
-// Function to filter files by selected language
-function isCorrectLanguage(fileName) {
-  if (currentLanguage === "EN") {
-    return !fileName.includes("_NL") && !fileName.includes("_FR");
-  }
-  return fileName.endsWith(`_${currentLanguage}.md`);
 }
 
 // Function to build navigation menu dynamically
@@ -81,11 +86,14 @@ function createFolderEntry(folder, parentElement) {
       subUl.dataset.loaded = "true";
     }
 
-    // Automatically load index.md if it exists
+    // Automatically load index.md of the selected language if available
     fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}?ref=${branch}`)
       .then(response => response.json())
       .then(files => {
-        const indexFile = files.find(file => file.name.toLowerCase() === "index.md" && isCorrectLanguage(file.name));
+        let indexFile = files.find(file => file.name.toLowerCase() === `index_${currentLanguage}.md`);
+        if (!indexFile && currentLanguage === "EN") {
+          indexFile = files.find(file => file.name.toLowerCase() === "index.md");
+        }
         if (indexFile) loadMarkdown(indexFile.path);
       });
   };
@@ -100,7 +108,7 @@ function addFileToNav(file, parentElement) {
   const li = document.createElement('li');
   const a = document.createElement('a');
   a.href = "#";
-  a.textContent = file.name.replace(/(_EN|_NL|_FR)?\.md$/, ""); // Remove language suffix
+  a.textContent = cleanFileName(file.name); // Remove _NL, _FR, _EN suffix
 
   a.onclick = function (e) {
     e.preventDefault();
@@ -115,7 +123,7 @@ function addFileToNav(file, parentElement) {
 function refreshNav() {
   document.getElementById('navList').innerHTML = '';
   buildNavigation("", document.getElementById('navList'));
-  loadMarkdown("README.md");
+  loadMarkdown(`README${currentLanguage === "EN" ? "" : `_${currentLanguage}`}.md`);
 }
 
 // Initialize navigation and language switchers
