@@ -146,3 +146,4 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshNav();
   });
 });
+console.log("JavaScript Loaded Successfully!");
