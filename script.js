@@ -1,13 +1,15 @@
 const owner = "zacharia-pal";
 const repo = "DocLibPub";
-const branch = "main"; // Update this if necessary
-const basePath = ""; // Set to repo root
+const branch = "main"; // Update if necessary
+const basePath = ""; // Base repo directory
+
 let currentLanguage = "EN"; // Default language
 
 const folderCustomNames = {
   "PAL_DOC_GIT_repotransfer_EN": "Patronale Life Git Repo Transfer English"
 };
 
+// Function to load Markdown file into content area
 function loadMarkdown(filePath) {
   const languageSuffix = currentLanguage !== "EN" ? `_${currentLanguage}` : "";
   const fileWithLanguage = filePath.replace(/(.+)\.md$/, `$1${languageSuffix}.md`);
@@ -16,7 +18,7 @@ function loadMarkdown(filePath) {
   fetch(rawUrl)
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Error loading ${filePath}: ${response.statusText}`);
+        throw new Error(`Error loading ${fileWithLanguage}: ${response.statusText}`);
       }
       return response.text();
     })
@@ -28,6 +30,7 @@ function loadMarkdown(filePath) {
     });
 }
 
+// Function to build navigation menu dynamically
 function buildNavigation(path, parentElement) {
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
 
@@ -35,21 +38,12 @@ function buildNavigation(path, parentElement) {
     .then(response => response.json())
     .then(items => {
       items.sort((a, b) => (a.type === b.type ? a.name.localeCompare(b.name) : a.type === "dir" ? -1 : 1));
-      
+
       items.forEach(item => {
         if (item.type === "dir") {
-          createDropdown(item, parentElement);
-        } else if (item.type === "file" && item.name.endsWith(".md") && !item.name.includes(`_${currentLanguage}`)) {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = "#";
-          a.textContent = item.name.replace(/\.md$/, '');
-          a.onclick = (e) => {
-            e.preventDefault();
-            loadMarkdown(item.path);
-          };
-          li.appendChild(a);
-          parentElement.appendChild(li);
+          createFolderEntry(item, parentElement);
+        } else if (item.type === "file" && item.name.endsWith(".md")) {
+          addFileToNav(item, parentElement);
         }
       });
     })
@@ -59,27 +53,35 @@ function buildNavigation(path, parentElement) {
     });
 }
 
-function createDropdown(folder, parentElement) {
+// Function to create folder entries in the navigation
+function createFolderEntry(folder, parentElement) {
   const li = document.createElement('li');
-  li.classList.add('dropdown');
+  li.classList.add('folder');
+  
+  const folderName = folderCustomNames[folder.name] || folder.name;
   const a = document.createElement('a');
-  a.textContent = folderCustomNames[folder.name] || folder.name;
   a.href = "#";
+  a.textContent = folderName;
 
   const subUl = document.createElement('ul');
-  subUl.style.display = "none";
+  subUl.classList.add('hidden');
 
   a.onclick = function(e) {
     e.preventDefault();
-    if (subUl.style.display === "none") {
-      subUl.style.display = "block";
-      if (!subUl.dataset.loaded) {
-        buildNavigation(folder.path, subUl);
-        subUl.dataset.loaded = "true";
-      }
-    } else {
-      subUl.style.display = "none";
+    subUl.classList.toggle('hidden');
+
+    if (!subUl.dataset.loaded) {
+      buildNavigation(folder.path, subUl);
+      subUl.dataset.loaded = "true";
     }
+
+    // Automatically load index.md if it exists
+    fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}?ref=${branch}`)
+      .then(response => response.json())
+      .then(files => {
+        const indexFile = files.find(file => file.name.toLowerCase() === "index.md");
+        if (indexFile) loadMarkdown(indexFile.path);
+      });
   };
 
   li.appendChild(a);
@@ -87,29 +89,46 @@ function createDropdown(folder, parentElement) {
   parentElement.appendChild(li);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const navList = document.getElementById('navList');
-  buildNavigation("", navList);
-  loadMarkdown("README.md");
+// Function to add files to the navigation
+function addFileToNav(file, parentElement) {
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  a.href = "#";
+  a.textContent = file.name.replace(/\.md$/, '');
 
-  document.getElementById("englishBtn").addEventListener("click", function() {
-    currentLanguage = "EN";
-    refreshNav();
-  });
+  a.onclick = function(e) {
+    e.preventDefault();
+    loadMarkdown(file.path);
+  };
 
-  document.getElementById("dutchBtn").addEventListener("click", function() {
-    currentLanguage = "NL";
-    refreshNav();
-  });
+  li.appendChild(a);
+  parentElement.appendChild(li);
+}
 
-  document.getElementById("frenchBtn").addEventListener("click", function() {
-    currentLanguage = "FR";
-    refreshNav();
-  });
-});
-
+// Function to refresh navigation when switching languages
 function refreshNav() {
   document.getElementById('navList').innerHTML = '';
   buildNavigation("", document.getElementById('navList'));
   loadMarkdown("README.md");
 }
+
+// Initialize navigation and language switchers
+document.addEventListener('DOMContentLoaded', () => {
+  buildNavigation("", document.getElementById('navList'));
+  loadMarkdown("README.md");
+
+  document.getElementById("englishBtn").addEventListener("click", () => {
+    currentLanguage = "EN";
+    refreshNav();
+  });
+
+  document.getElementById("dutchBtn").addEventListener("click", () => {
+    currentLanguage = "NL";
+    refreshNav();
+  });
+
+  document.getElementById("frenchBtn").addEventListener("click", () => {
+    currentLanguage = "FR";
+    refreshNav();
+  });
+});
