@@ -1,7 +1,7 @@
 /* Overall page styling */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: #fff;
   color: #333;
 }
@@ -25,7 +25,7 @@ nav ul {
 }
 
 nav li {
-  border-bottom: 1px solid #003580; /* Slightly lighter blue for separation */
+  border-bottom: 1px solid #003580; /* Slightly lighter blue */
 }
 
 nav a {
@@ -33,6 +33,9 @@ nav a {
   padding: 15px 20px;
   color: #fff;
   text-decoration: none;
+  font-family: 'Merriweather', serif;
+  font-size: 18px;
+  font-weight: bold;
   transition: background-color 0.3s;
 }
 
@@ -46,7 +49,7 @@ nav a:hover, nav li.active > a {
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: #001f4d; /* Even darker blue for nested items */
+  background-color: #001f4d;
 }
 
 .dropdown.open > ul {
@@ -55,9 +58,10 @@ nav a:hover, nav li.active > a {
 
 .dropdown ul li a {
   padding-left: 35px;
+  font-size: 16px;
 }
 
-/* Content styling: push content to the right of the nav bar */
+/* Main content area styling: push content to the right of the nav bar */
 #content {
   margin-left: 250px;
   padding: 20px;
