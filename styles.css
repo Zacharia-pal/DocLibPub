@@ -6,13 +6,66 @@ body {
   color: #333;
 }
 
-/* Vertical navigation styling */
-nav {
-  background-color: #002366; /* Dark blue */
-  width: 250px;
-  height: 100vh;
+/* Fixed header styling */
+header {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 15px;
+}
+
+.company-name {
+  font-family: 'Merriweather', serif;
+  font-size: 24px;
+  margin: 0;
+  color: #002366;
+}
+
+/* Language buttons */
+.language-select {
+  margin-left: auto;
+}
+
+.language-select button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #003580;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.language-select button:hover {
+  background-color: #002366;
+}
+
+/* Vertical navigation styling */
+nav {
+  background-color: #002366;
+  width: 250px;
+  position: fixed;
+  top: 80px;
+  bottom: 0;
   left: 0;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -25,7 +78,7 @@ nav ul {
 }
 
 nav li {
-  border-bottom: 1px solid #003580; /* Slightly lighter blue */
+  border-bottom: 1px solid #003580;
 }
 
 nav a {
@@ -61,8 +114,9 @@ nav a:hover, nav li.active > a {
   font-size: 16px;
 }
 
-/* Main content area styling: push content to the right of the nav bar */
+/* Main content area styling */
 #content {
+  margin-top: 80px;
   margin-left: 250px;
   padding: 20px;
 }
