@@ -9,7 +9,7 @@ const folderCustomNames = {
   "PAL_DOC_GIT_repotransfer_EN": "Patronale Life Git Repo Transfer English"
 };
 
-// Function to check if a file matches the current language
+// Check if a file matches the current language
 function isCorrectLanguage(fileName) {
   if (currentLanguage === "EN") {
     return !fileName.includes("_NL.md") && !fileName.includes("_FR.md");
@@ -17,20 +17,18 @@ function isCorrectLanguage(fileName) {
   return fileName.endsWith(`_${currentLanguage}.md`);
 }
 
-// Function to remove language suffix from file names
+// Remove _NL, _FR, _EN from file names
 function cleanFileName(fileName) {
   return fileName.replace(/(_EN|_NL|_FR)?\.md$/, "");
 }
 
-// Function to load Markdown file into content area
+// Load Markdown file into the content area
 function loadMarkdown(filePath) {
   const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
 
   fetch(rawUrl)
     .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error loading ${filePath}: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Error loading ${filePath}: ${response.statusText}`);
       return response.text();
     })
     .then(markdown => {
@@ -41,7 +39,7 @@ function loadMarkdown(filePath) {
     });
 }
 
-// Function to build navigation menu dynamically
+// Build navigation dynamically
 function buildNavigation(path, parentElement) {
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
 
@@ -64,7 +62,7 @@ function buildNavigation(path, parentElement) {
     });
 }
 
-// Function to create folder entries in the navigation
+// Create folder entries in the navigation
 function createFolderEntry(folder, parentElement) {
   const li = document.createElement('li');
   li.classList.add('folder');
@@ -86,7 +84,7 @@ function createFolderEntry(folder, parentElement) {
       subUl.dataset.loaded = "true";
     }
 
-    // Automatically load index.md of the selected language if available
+    // Load index.md of selected language inside folder
     fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}?ref=${branch}`)
       .then(response => response.json())
       .then(files => {
@@ -103,12 +101,12 @@ function createFolderEntry(folder, parentElement) {
   parentElement.appendChild(li);
 }
 
-// Function to add files to the navigation
+// Add files to the navigation
 function addFileToNav(file, parentElement) {
   const li = document.createElement('li');
   const a = document.createElement('a');
   a.href = "#";
-  a.textContent = cleanFileName(file.name); // Remove _NL, _FR, _EN suffix
+  a.textContent = cleanFileName(file.name);
 
   a.onclick = function (e) {
     e.preventDefault();
@@ -119,7 +117,7 @@ function addFileToNav(file, parentElement) {
   parentElement.appendChild(li);
 }
 
-// Function to refresh navigation when switching languages
+// Refresh navigation when switching languages
 function refreshNav() {
   document.getElementById('navList').innerHTML = '';
   buildNavigation("", document.getElementById('navList'));
@@ -146,4 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshNav();
   });
 });
+
+// Debugging Log
 console.log("JavaScript Loaded Successfully!");
