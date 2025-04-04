@@ -1,9 +1,11 @@
-// Configuration variables – adjust these to match your repository
+// Configuration variables
 const owner = "zacharia-pal";
 const repo = "DocLibPub";
 const branch = "main"; // Change if your branch is different
-// Use the repository root as the base path
-const basePath = "";
+const basePath = ""; // Use the repo root as the base path
+
+// Language selection (default: English)
+let currentLanguage = "EN";
 
 // Custom folder names mapping: key = folder name, value = custom display name
 const folderCustomNames = {
@@ -11,12 +13,13 @@ const folderCustomNames = {
   // Add more mappings as needed
 };
 
-/**
- * Loads a Markdown file using its raw URL and renders it with marked.js.
- * @param {string} filePath - The file path relative to the repository root.
- */
+// Load the appropriate Markdown file based on language
 function loadMarkdown(filePath) {
-  const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
+  // Add language suffix based on the current language
+  const languageSuffix = currentLanguage !== "EN" ? `_${currentLanguage}` : "";
+  const fileWithLanguage = filePath.replace(/(.+)\.md$/, `$1${languageSuffix}.md`);
+  const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fileWithLanguage}`;
+  
   fetch(rawUrl)
     .then(response => {
       if (!response.ok) {
@@ -32,18 +35,13 @@ function loadMarkdown(filePath) {
     });
 }
 
-/**
- * Builds navigation for files and directories in the given path.
- * Only directories and Markdown files are included.
- * @param {string} path - The folder path relative to the repository root.
- * @param {HTMLElement} parentElement - The DOM element to which nav items will be appended.
- */
+// Build navigation for files and directories in the given path
 function buildNavigation(path, parentElement) {
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+  
   fetch(apiUrl)
     .then(response => response.json())
     .then(items => {
-      // Sort items: directories first, then files
       items.sort((a, b) => {
         if (a.type === b.type) return a.name.localeCompare(b.name);
         return a.type === "dir" ? -1 : 1;
@@ -52,7 +50,6 @@ function buildNavigation(path, parentElement) {
         if (item.type === "dir") {
           buildDirectoryNavigation(item, parentElement);
         } else if (item.type === "file" && item.name.endsWith(".md") && item.name.toLowerCase() !== "index.md") {
-          // Add standalone Markdown files (but not index.md)
           const li = document.createElement('li');
           const a = document.createElement('a');
           a.href = "#";
@@ -72,18 +69,11 @@ function buildNavigation(path, parentElement) {
     });
 }
 
-/**
- * Builds a navigation item for a directory.
- * If the directory contains an index.md, clicking the folder loads that file.
- * Also builds a dropdown for any additional items within the directory.
- * @param {Object} item - The directory item from the GitHub API.
- * @param {HTMLElement} parentElement - The DOM element to append this nav item.
- */
+// Build navigation for a directory, including a dropdown for nested items
 function buildDirectoryNavigation(item, parentElement) {
   const li = document.createElement('li');
   li.classList.add('dropdown');
   const a = document.createElement('a');
-  // Use custom name if available; otherwise, use the directory name
   a.textContent = folderCustomNames[item.name] || item.name;
   a.href = "#";
   li.appendChild(a);
@@ -96,16 +86,14 @@ function buildDirectoryNavigation(item, parentElement) {
       fetch(apiUrl)
         .then(response => response.json())
         .then(subItems => {
-          // Sort subItems: directories first, then files
           subItems.sort((a, b) => {
             if (a.type === b.type) return a.name.localeCompare(b.name);
             return a.type === "dir" ? -1 : 1;
           });
-          // Check if index.md exists; if so, load it when the folder is clicked
+          // Check for index.md and load it when the folder is clicked
           let indexMdItem = subItems.find(si => si.type === "file" && si.name.toLowerCase() === "index.md");
           if (indexMdItem) {
             loadMarkdown(indexMdItem.path);
-            // Remove index.md so it doesn't appear as a separate item
             subItems = subItems.filter(si => si !== indexMdItem);
           }
           if (subItems.length > 0) {
@@ -133,14 +121,38 @@ function buildDirectoryNavigation(item, parentElement) {
         .catch(error => {
           console.error("Error loading directory:", error);
         });
-    }
+    };
   };
   parentElement.appendChild(li);
 }
 
-// On page load, build the navigation (starting at the repo root) and load a default Markdown file (e.g., README.md)
+// Initialize language buttons and set default language
 document.addEventListener('DOMContentLoaded', () => {
   const navList = document.getElementById('navList');
-  buildNavigation(basePath, navList);
+  buildNavigation("", navList);  // Build navigation from the root directory
+
+  // Load the default language (English)
   loadMarkdown("README.md");
+
+  // Language button event listeners
+  document.getElementById("englishBtn").addEventListener("click", function() {
+    currentLanguage = "EN";
+    document.getElementById('navList').innerHTML = '';  // Clear the nav
+    buildNavigation("", navList);  // Rebuild the nav for English
+    loadMarkdown("README.md");  // Load the English version
+  });
+
+  document.getElementById("dutchBtn").addEventListener("click", function() {
+    currentLanguage = "NL";
+    document.getElementById('navList').innerHTML = '';  // Clear the nav
+    buildNavigation("", navList);  // Rebuild the nav for Dutch
+    loadMarkdown("README.md");  // Load the Dutch version
+  });
+
+  document.getElementById("frenchBtn").addEventListener("click", function() {
+    currentLanguage = "FR";
+    document.getElementById('navList').innerHTML = '';  // Clear the nav
+    buildNavigation("", navList);  // Rebuild the nav for French
+    loadMarkdown("README.md");  // Load the French version
+  });
 });
