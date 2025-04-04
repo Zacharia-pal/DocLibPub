@@ -11,14 +11,12 @@ const folderCustomNames = {
 
 // Function to load Markdown file into content area
 function loadMarkdown(filePath) {
-  const languageSuffix = currentLanguage !== "EN" ? `_${currentLanguage}` : "";
-  const fileWithLanguage = filePath.replace(/(.+)\.md$/, `$1${languageSuffix}.md`);
-  const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fileWithLanguage}`;
+  const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
 
   fetch(rawUrl)
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Error loading ${fileWithLanguage}: ${response.statusText}`);
+        throw new Error(`Error loading ${filePath}: ${response.statusText}`);
       }
       return response.text();
     })
@@ -28,6 +26,14 @@ function loadMarkdown(filePath) {
     .catch(error => {
       document.getElementById('content').innerHTML = `<p>${error}</p>`;
     });
+}
+
+// Function to filter files by selected language
+function isCorrectLanguage(fileName) {
+  if (currentLanguage === "EN") {
+    return !fileName.includes("_NL") && !fileName.includes("_FR");
+  }
+  return fileName.endsWith(`_${currentLanguage}.md`);
 }
 
 // Function to build navigation menu dynamically
@@ -42,7 +48,7 @@ function buildNavigation(path, parentElement) {
       items.forEach(item => {
         if (item.type === "dir") {
           createFolderEntry(item, parentElement);
-        } else if (item.type === "file" && item.name.endsWith(".md")) {
+        } else if (item.type === "file" && item.name.endsWith(".md") && isCorrectLanguage(item.name)) {
           addFileToNav(item, parentElement);
         }
       });
@@ -57,7 +63,7 @@ function buildNavigation(path, parentElement) {
 function createFolderEntry(folder, parentElement) {
   const li = document.createElement('li');
   li.classList.add('folder');
-  
+
   const folderName = folderCustomNames[folder.name] || folder.name;
   const a = document.createElement('a');
   a.href = "#";
@@ -66,7 +72,7 @@ function createFolderEntry(folder, parentElement) {
   const subUl = document.createElement('ul');
   subUl.classList.add('hidden');
 
-  a.onclick = function(e) {
+  a.onclick = function (e) {
     e.preventDefault();
     subUl.classList.toggle('hidden');
 
@@ -79,7 +85,7 @@ function createFolderEntry(folder, parentElement) {
     fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}?ref=${branch}`)
       .then(response => response.json())
       .then(files => {
-        const indexFile = files.find(file => file.name.toLowerCase() === "index.md");
+        const indexFile = files.find(file => file.name.toLowerCase() === "index.md" && isCorrectLanguage(file.name));
         if (indexFile) loadMarkdown(indexFile.path);
       });
   };
@@ -94,9 +100,9 @@ function addFileToNav(file, parentElement) {
   const li = document.createElement('li');
   const a = document.createElement('a');
   a.href = "#";
-  a.textContent = file.name.replace(/\.md$/, '');
+  a.textContent = file.name.replace(/(_EN|_NL|_FR)?\.md$/, ""); // Remove language suffix
 
-  a.onclick = function(e) {
+  a.onclick = function (e) {
     e.preventDefault();
     loadMarkdown(file.path);
   };
