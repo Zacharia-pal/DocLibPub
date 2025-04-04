@@ -4,13 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Markdown Navigation - Entire Repo</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <!-- Include marked.js from a CDN -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+  <!-- Fixed header with company logo -->
+  <header>
+    <div class="header-container">
+      <img src="logo.png" alt="Company Logo" class="logo" />
+      <h1 class="company-name">Your Company Name</h1>
+      <div class="language-select">
+        <button id="englishBtn">English</button>
+        <button id="dutchBtn">Dutch</button>
+        <button id="frenchBtn">French</button>
+      </div>
+    </div>
+  </header>
+
   <!-- Vertical navigation on left -->
   <nav>
     <ul id="navList">
