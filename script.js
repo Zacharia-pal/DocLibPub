@@ -1,85 +1,57 @@
-const owner = 'Zacharia-pal';
-const repo = 'DocLibPub';
-const basePath = 'Guides/Repo_Transfer';
-let currentLanguage = 'en'; // Default
+const repoOwner = 'Zacharia-pal'; // GitHub username
+const repoName = 'DocLibPub'; // GitHub repository name
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
 
-// Language suffix map
-const langSuffixes = {
-  en: 'EN',
-  fr: 'FR',
-  nl: 'NL'
-};
+let filesData = [];
+let currentLanguage = 'EN'; // Default language is English
 
-// On page load
-window.onload = () => {
-  setupLanguageButtons();
-  loadGuideNav();
-};
+document.addEventListener('DOMContentLoaded', () => {
+    // Fetch files from the GitHub repository
+    fetchFiles();
 
-// Handle language selection
-function setupLanguageButtons() {
-  const selector = document.getElementById('language-selector');
-  selector.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') {
-      const lang = e.target.getAttribute('data-lang');
-      if (lang in langSuffixes) {
-        currentLanguage = lang;
-        loadGuideNav();
-      }
-    }
-  });
-}
-
-// Load navigation
-function loadGuideNav() {
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${basePath}`;
-  fetch(apiUrl)
-    .then(res => res.json())
-    .then(data => {
-      const navBar = document.getElementById('nav-bar');
-      navBar.innerHTML = ''; // Clear previous
-
-      const suffix = langSuffixes[currentLanguage];
-      const targetFile = `Repo_Transfer_${suffix}.md`;
-
-      const fileItem = data.find(item => item.name === targetFile);
-
-      if (fileItem) {
-        createNavLink('Repo Transfer', fileItem.download_url);
-        loadMarkdown(fileItem.download_url);
-      } else {
-        navBar.innerHTML = `<p style="color: white;">File not found for ${currentLanguage.toUpperCase()}</p>`;
-        document.getElementById('content').innerHTML = '';
-      }
-    })
-    .catch(err => {
-      console.error('Error loading guides:', err);
+    // Set up language change listener
+    document.getElementById('language-selector').addEventListener('change', (e) => {
+        currentLanguage = e.target.value;
+        displayFilteredFiles();
     });
+});
+
+// Fetch all files from the repository
+async function fetchFiles() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        // Filter out the markdown files
+        filesData = data.filter(file => file.name.endsWith('.md'));
+
+        // Display the files for the default language
+        displayFilteredFiles();
+    } catch (error) {
+        console.error('Error fetching files:', error);
+    }
 }
 
-// Create link in sidebar
-function createNavLink(label, url) {
-  const navBar = document.getElementById('nav-bar');
-  const link = document.createElement('a');
-  link.href = '#';
-  link.textContent = label;
-  link.onclick = (e) => {
-    e.preventDefault();
-    loadMarkdown(url);
-  };
-  navBar.appendChild(link);
-}
+// Display files based on the selected language
+function displayFilteredFiles() {
+    // Filter files based on the language
+    const filteredFiles = filesData.filter(file => file.name.includes(`_${currentLanguage}`));
 
-// Load and display markdown
-function loadMarkdown(url) {
-  fetch(url)
-    .then(res => res.text())
-    .then(markdown => {
-      const html = marked.parse(markdown);
-      document.getElementById('content').innerHTML = html;
-    })
-    .catch(err => {
-      console.error('Markdown load error:', err);
-      document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
+    // Display the filtered files in the content area
+    const contentArea = document.getElementById('content-area');
+    contentArea.innerHTML = ''; // Clear existing content
+
+    if (filteredFiles.length === 0) {
+        contentArea.innerHTML = `<p>No files available for language: ${currentLanguage}</p>`;
+        return;
+    }
+
+    filteredFiles.forEach(file => {
+        const fileLink = document.createElement('a');
+        fileLink.href = file.download_url;
+        fileLink.target = '_blank';
+        fileLink.textContent = file.name.replace(`_${currentLanguage}.md`, '');
+        contentArea.appendChild(fileLink);
+        contentArea.appendChild(document.createElement('br'));
     });
 }
