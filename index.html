@@ -3,42 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub MD Files</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            margin: 20px;
-        }
-        h1 {
-            color: #0056b3;
-        }
-        #file-list {
-            margin-top: 20px;
-        }
-        .file-item {
-            background-color: #fff;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .file-item a {
-            text-decoration: none;
-            color: #0056b3;
-        }
-        .file-item a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>MD File Viewer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Markdown Files from GitHub Repository</h1>
-    <div id="file-list">
-        <!-- The list of .md files will be dynamically added here -->
+    <div id="sidebar" class="sidebar">
+        <h2>Markdown Files</h2>
+        <ul id="file-list"></ul>
     </div>
 
-    <script src="scripts.js"></script>
+    <div id="content" class="content">
+        <h1>Welcome to the MD File Viewer</h1>
+        <div id="md-content">Please select a file from the sidebar.</div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
