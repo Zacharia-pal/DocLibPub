@@ -2,38 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dynamic Markdown Navigation - Entire Repo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DocLibPub Viewer</title>
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Marked.js for Markdown rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-  <!-- Fixed header with company logo -->
+
   <header>
-    <div class="header-container">
-      <img src="logo.png" alt="Company Logo" class="logo" />
-      <h1 class="company-name"></h1>
-      <div class="language-select">
-        <button id="englishBtn">English</button>
-        <button id="dutchBtn">Dutch</button>
-        <button id="frenchBtn">French</button>
-      </div>
+    <h1>📚 DocLibPub</h1>
+    <div id="language-selector">
+      <button data-lang="en">English</button>
+      <button data-lang="fr">Français</button>
+      <button data-lang="nl">Nederlands</button>
     </div>
   </header>
 
-  <!-- Vertical navigation on left -->
-  <nav>
-    <ul id="navList">
-      <!-- Navigation items will be built automatically -->
-    </ul>
-  </nav>
+  <main>
+    <nav id="nav-bar">
+      <!-- Links to guides will be populated here -->
+    </nav>
+    <div id="content">
+      <!-- Markdown content will appear here -->
+      <p>Loading guide...</p>
+    </div>
+  </main>
 
-  <!-- Main content area for rendered Markdown -->
-  <div id="content">
-    <p>Loading content...</p>
-  </div>
-
+  <!-- Your JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
