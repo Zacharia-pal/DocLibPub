@@ -44,7 +44,9 @@ This guide explains step by step how to transfer a repository from one organizat
 4. Enter the **name of the target organization** (e.g., `NewOrganization`).
 5. Click **"I understand, transfer this repository"** to start the transfer.
 
-*Reference: Add a screenshot of the transfer screen here.*
+![Transfer](Repo Transfer_3.png)
+
+*Reference: transfer.*
 
 ---
 
@@ -53,7 +55,9 @@ This guide explains step by step how to transfer a repository from one organizat
 - GitHub will send a notification to the new owner or organization.
 - Once the transfer is complete, the repository will appear under the new organization.
 
-*Reference: Add a screenshot of the confirmation email or notification here.*
+![Confimation](Repo Transfer_4.png)
+
+*Reference: the confirmation email or notification.*
 
 ---
 
