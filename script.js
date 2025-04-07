@@ -1,140 +1,84 @@
-const owner = "zacharia-pal";
-const repo = "DocLibPub";
-const branch = "main"; // Update if necessary
-const basePath = ""; // Base repo directory
+const owner = 'Zacharia-pal';
+const repo = 'DocLibPub';
+const basePath = 'guides';
+let currentLanguage = 'en'; // Default language
 
-let currentLanguage = "EN"; // Default language
-
-const folderCustomNames = {
-  "PAL_DOC_GIT_repotransfer_EN": "Patronale Life Git Repo Transfer English"
+// Map for language suffixes
+const langSuffixes = {
+  en: 'EN',
+  fr: 'FR',
+  nl: 'NL'
 };
 
-// Function to load Markdown file into content area
-function loadMarkdown(filePath) {
-  const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
+// Init on load
+window.onload = () => {
+  setupLanguageButtons();
+  loadGuideNav();
+};
 
-  fetch(rawUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error loading ${filePath}: ${response.statusText}`);
+// Setup language switcher
+function setupLanguageButtons() {
+  document.getElementById('language-selector').addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      const lang = e.target.getAttribute('data-lang');
+      if (lang in langSuffixes) {
+        currentLanguage = lang;
+        loadGuideNav(); // Reload nav items based on new language
       }
-      return response.text();
-    })
-    .then(markdown => {
-      document.getElementById('content').innerHTML = marked.parse(markdown);
-    })
-    .catch(error => {
-      document.getElementById('content').innerHTML = `<p>${error}</p>`;
-    });
+    }
+  });
 }
 
-// Function to filter files by selected language
-function isCorrectLanguage(fileName) {
-  if (currentLanguage === "EN") {
-    return !fileName.includes("_NL") && !fileName.includes("_FR");
-  }
-  return fileName.endsWith(`_${currentLanguage}.md`);
-}
-
-// Function to build navigation menu dynamically
-function buildNavigation(path, parentElement) {
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+// Load nav items from GitHub
+function loadGuideNav() {
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${basePath}`;
 
   fetch(apiUrl)
-    .then(response => response.json())
-    .then(items => {
-      items.sort((a, b) => (a.type === b.type ? a.name.localeCompare(b.name) : a.type === "dir" ? -1 : 1));
+    .then(res => res.json())
+    .then(data => {
+      const navBar = document.getElementById('nav-bar');
+      navBar.innerHTML = ''; // Clear old links
 
-      items.forEach(item => {
-        if (item.type === "dir") {
-          createFolderEntry(item, parentElement);
-        } else if (item.type === "file" && item.name.endsWith(".md") && isCorrectLanguage(item.name)) {
-          addFileToNav(item, parentElement);
-        }
-      });
+      const suffix = langSuffixes[currentLanguage];
+      const targetFile = `Repo Transfer_${suffix}.md`;
+
+      const fileItem = data.find(item => item.name === targetFile);
+      if (fileItem) {
+        createNavLink(fileItem.name.replace('.md', ''), fileItem.download_url);
+        loadMarkdown(fileItem.download_url); // Load on init
+      } else {
+        navBar.innerHTML = `<p>No file found for language "${currentLanguage.toUpperCase()}"</p>`;
+        document.getElementById('content').innerHTML = '';
+      }
     })
-    .catch(error => {
-      console.error("Error building navigation:", error);
-      parentElement.innerHTML = `<li>Error loading navigation</li>`;
+    .catch(err => {
+      console.error('Error loading guides:', err);
     });
 }
 
-// Function to create folder entries in the navigation
-function createFolderEntry(folder, parentElement) {
-  const li = document.createElement('li');
-  li.classList.add('folder');
-
-  const folderName = folderCustomNames[folder.name] || folder.name;
-  const a = document.createElement('a');
-  a.href = "#";
-  a.textContent = folderName;
-
-  const subUl = document.createElement('ul');
-  subUl.classList.add('hidden');
-
-  a.onclick = function (e) {
+// Create nav link
+function createNavLink(label, url) {
+  const navBar = document.getElementById('nav-bar');
+  const link = document.createElement('a');
+  link.href = '#';
+  link.textContent = label;
+  link.onclick = (e) => {
     e.preventDefault();
-    subUl.classList.toggle('hidden');
-
-    if (!subUl.dataset.loaded) {
-      buildNavigation(folder.path, subUl);
-      subUl.dataset.loaded = "true";
-    }
-
-    // Automatically load index.md if it exists
-    fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${folder.path}?ref=${branch}`)
-      .then(response => response.json())
-      .then(files => {
-        const indexFile = files.find(file => file.name.toLowerCase() === "index.md" && isCorrectLanguage(file.name));
-        if (indexFile) loadMarkdown(indexFile.path);
-      });
+    loadMarkdown(url);
   };
-
-  li.appendChild(a);
-  li.appendChild(subUl);
-  parentElement.appendChild(li);
+  navBar.appendChild(link);
 }
 
-// Function to add files to the navigation
-function addFileToNav(file, parentElement) {
-  const li = document.createElement('li');
-  const a = document.createElement('a');
-  a.href = "#";
-  a.textContent = file.name.replace(/(_EN|_NL|_FR)?\.md$/, ""); // Remove language suffix
-
-  a.onclick = function (e) {
-    e.preventDefault();
-    loadMarkdown(file.path);
-  };
-
-  li.appendChild(a);
-  parentElement.appendChild(li);
+// Load and render markdown
+function loadMarkdown(url) {
+  fetch(url)
+    .then(res => res.text())
+    .then(markdown => {
+      const html = marked.parse(markdown);
+      document.getElementById('content').innerHTML = html;
+    })
+    .catch(err => {
+      console.error('Error loading markdown:', err);
+      document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
+    });
 }
-
-// Function to refresh navigation when switching languages
-function refreshNav() {
-  document.getElementById('navList').innerHTML = '';
-  buildNavigation("", document.getElementById('navList'));
-  loadMarkdown("README.md");
-}
-
-// Initialize navigation and language switchers
-document.addEventListener('DOMContentLoaded', () => {
-  buildNavigation("", document.getElementById('navList'));
-  loadMarkdown("README.md");
-
-  document.getElementById("englishBtn").addEventListener("click", () => {
-    currentLanguage = "EN";
-    refreshNav();
-  });
-
-  document.getElementById("dutchBtn").addEventListener("click", () => {
-    currentLanguage = "NL";
-    refreshNav();
-  });
-
-  document.getElementById("frenchBtn").addEventListener("click", () => {
-    currentLanguage = "FR";
-    refreshNav();
-  });
-});
