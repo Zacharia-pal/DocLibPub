@@ -2,20 +2,62 @@ document.addEventListener('DOMContentLoaded', function () {
     const fileList = document.getElementById('file-list');
     const mdContent = document.getElementById('md-content');
 
-    // Sample function to simulate retrieving all markdown files from the server
+    const repoOwner = 'YOUR_GITHUB_USERNAME'; // Your GitHub username or organization
+    const repoName = 'YOUR_REPO_NAME';        // The name of your GitHub repository
+
+    // Function to fetch files from GitHub repository
     function getMarkdownFiles() {
-        // This is a mock data structure simulating your repository's file structure
-        // Replace this part with actual server-side logic if you're using Node.js, Python, etc.
-        return [
-            { path: 'folder1/file1.md', name: 'file1.md' },
-            { path: 'folder1/file2.md', name: 'file2.md' },
-            { path: 'folder2/file3.md', name: 'file3.md' },
-            { path: 'folder3/subfolder1/file4.md', name: 'file4.md' },
-            // More files here...
-        ];
+        // GitHub API URL to get repository contents (replace with your actual repo details)
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const mdFiles = [];
+                data.forEach(item => {
+                    if (item.type === 'file' && item.name.endsWith('.md')) {
+                        mdFiles.push({
+                            name: item.name,
+                            path: item.path
+                        });
+                    } else if (item.type === 'dir') {
+                        // Recursively look for .md files in subdirectories
+                        fetchMarkdownFilesInDir(item.path, mdFiles);
+                    }
+                });
+                populateSidebar(mdFiles);
+            })
+            .catch(error => {
+                console.error('Error fetching files from GitHub:', error);
+                mdContent.innerHTML = `<p>Error loading files.</p>`;
+            });
     }
 
-    // Function to display the files in the sidebar
+    // Function to fetch markdown files in subdirectories
+    function fetchMarkdownFilesInDir(dirPath, mdFiles) {
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${dirPath}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(item => {
+                    if (item.type === 'file' && item.name.endsWith('.md')) {
+                        mdFiles.push({
+                            name: item.name,
+                            path: item.path
+                        });
+                    } else if (item.type === 'dir') {
+                        fetchMarkdownFilesInDir(item.path, mdFiles); // Recurse into subdirectories
+                    }
+                });
+                populateSidebar(mdFiles);
+            })
+            .catch(error => {
+                console.error('Error fetching directory contents:', error);
+            });
+    }
+
+    // Function to populate the sidebar with markdown files
     function populateSidebar(files) {
         files.forEach(file => {
             const li = document.createElement('li');
@@ -31,17 +73,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to fetch the markdown content (you'd fetch the real content here)
+    // Function to fetch the markdown content and render it
     function loadMarkdownContent(filePath) {
-        // This is a mock of fetching markdown content
-        // Replace this with an actual fetch request to your server, e.g., fetch(`path/to/${filePath}`)
-        mdContent.innerHTML = `
-            <h2>Viewing: ${filePath}</h2>
-            <p>This is where the markdown content would go. Replace with actual fetch logic.</p>
-        `;
+        const apiUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/main/${filePath}`;
+
+        fetch(apiUrl)
+            .then(response => response.text())
+            .then(markdown => {
+                mdContent.innerHTML = marked(markdown);  // Render the markdown content
+            })
+            .catch(error => {
+                mdContent.innerHTML = `<p>Error loading file: ${error}</p>`;
+            });
     }
 
-    // Initialize the sidebar with all files
-    const files = getMarkdownFiles();
-    populateSidebar(files);
+    // Initialize the sidebar with markdown files
+    getMarkdownFiles();
 });
