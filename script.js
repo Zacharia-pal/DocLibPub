@@ -40,7 +40,7 @@ function loadGuideNav() {
       navBar.innerHTML = ''; // Clear previous
 
       const suffix = langSuffixes[currentLanguage];
-      const targetFile = `Repo Transfer_${suffix}.md`;
+      const targetFile = `Repo_Transfer_${suffix}.md`;
 
       const fileItem = data.find(item => item.name === targetFile);
 
