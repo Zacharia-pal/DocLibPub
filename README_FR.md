@@ -1,40 +1,40 @@
-# Public Documentation Repository
+# Répertoire de Documentation Publique
 
-Welcome to the official repository for **non-data-sensitive public documentation**. This repository is designed to house and share publicly accessible content that does **not** contain any sensitive, confidential, or personal data.
+Bienvenue dans le répertoire officiel de la **documentation publique ne contenant pas de données sensibles**. Ce répertoire est conçu pour héberger et partager du contenu accessible au public ne contenant **aucune** donnée sensible, confidentielle ou personnelle.
 
-## Purpose
+## Objectif
 
-The purpose of this repository is to maintain and share:
-- Guides
-- Tutorials
-- Best practices
-- Public resources
-- Technical documentation
+Ce répertoire a pour objectif de maintenir et partager :
+- Des guides
+- Des tutoriels
+- Des bonnes pratiques
+- Des ressources publiques
+- De la documentation technique
 
-This repository aims to provide valuable information that can be shared freely with the community, while ensuring that no data-sensitive or private information is included.
+L’objectif est de fournir des informations utiles pouvant être librement partagées avec la communauté, tout en veillant à ce qu’aucune donnée privée ou sensible ne soit incluse.
 
-## Data Sensitivity
+## Sensibilité des Données
 
-**Important**: This repository **does not** store or manage any private, confidential, or sensitive data. If you need to store sensitive data or private information, please ensure it is kept in a secure and private location.
+**Important** : Ce répertoire **ne** stocke ni ne gère aucune donnée privée, confidentielle ou sensible. Si vous avez besoin de stocker des informations sensibles ou privées, assurez-vous de le faire dans un espace sécurisé et privé.
 
-## Contributing
+## Contribution
 
-We welcome contributions to improve the documentation. If you have any suggestions or want to add a new guide, feel free to open a pull request (PR).
+Les contributions pour améliorer la documentation sont les bienvenues. Si vous avez des suggestions ou souhaitez ajouter un nouveau guide, n’hésitez pas à ouvrir une pull request (PR).
 
-Please ensure that any content you add complies with the following:
-- It does not contain any confidential or private data.
-- It is publicly accessible and can be freely shared with others.
+Merci de vous assurer que tout contenu ajouté respecte les points suivants :
+- Il ne contient aucune donnée confidentielle ou privée.
+- Il est accessible publiquement et peut être partagé librement.
 
-## Security
+## Sécurité
 
-If you come across any content that you believe may be sensitive or private, please **do not** add it to this repository. If you notice any issues with content already present, feel free to report it by opening an issue or contacting the repository administrators.
+Si vous tombez sur un contenu que vous jugez sensible ou privé, **ne l’ajoutez pas** à ce répertoire. Si un contenu déjà présent semble poser problème, n’hésitez pas à le signaler en ouvrant un ticket ou en contactant les administrateurs du répertoire.
 
-## License
+## Licence
 
-The content in this repository is open-source and available for public use. Please refer to the LICENSE file for more information on usage rights.
+Le contenu de ce répertoire est open-source et disponible pour une utilisation publique. Veuillez consulter le fichier LICENSE pour plus d’informations sur les droits d’utilisation.
 
 ---
 
-By using this repository, you're agreeing to contribute to a space that prioritizes transparency and accessibility while maintaining the security and privacy of sensitive data.
+En utilisant ce répertoire, vous acceptez de contribuer à un espace qui favorise la transparence et l’accessibilité tout en respectant la sécurité et la confidentialité des données sensibles.
 
-Thank you for contributing to the community!
+Merci de votre contribution à la communauté !
