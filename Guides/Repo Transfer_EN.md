@@ -20,6 +20,7 @@ This guide explains step by step how to transfer a repository from one organizat
 2. Click **Sign In** in the top-right corner and log in with your username and password.
 
 ![Login page](GithubLoginPage.png)
+
 *Reference: Login page.*
 
 ---
