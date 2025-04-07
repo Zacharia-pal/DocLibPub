@@ -19,7 +19,7 @@ This guide explains step by step how to transfer a repository from one organizat
 1. Open your browser and go to [GitHub](https://github.com/).
 2. Click **Sign In** in the top-right corner and log in with your username and password.
 
-![Login page](GithubLoginPage.png)
+![Login page](Repo Transfer_1.png)
 
 *Reference: Login page.*
 
@@ -30,7 +30,9 @@ This guide explains step by step how to transfer a repository from one organizat
 2. Find the repository you want to transfer and click on it.
 3. Click on **Settings** at the top.
 
-*Reference: Add a screenshot of the settings menu here.*
+![Settings page](Repo Transfer_2.png)
+
+*Reference: settings menu.*
 
 ---
 
