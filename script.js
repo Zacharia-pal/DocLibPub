@@ -1,53 +1,54 @@
 const owner = 'Zacharia-pal';
 const repo = 'DocLibPub';
 const basePath = 'guides';
-let currentLanguage = 'en'; // Default language
+let currentLanguage = 'en'; // Default
 
-// Map for language suffixes
+// Language suffix map
 const langSuffixes = {
   en: 'EN',
   fr: 'FR',
   nl: 'NL'
 };
 
-// Init on load
+// On page load
 window.onload = () => {
   setupLanguageButtons();
   loadGuideNav();
 };
 
-// Setup language switcher
+// Handle language selection
 function setupLanguageButtons() {
-  document.getElementById('language-selector').addEventListener('click', (e) => {
+  const selector = document.getElementById('language-selector');
+  selector.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       const lang = e.target.getAttribute('data-lang');
       if (lang in langSuffixes) {
         currentLanguage = lang;
-        loadGuideNav(); // Reload nav items based on new language
+        loadGuideNav();
       }
     }
   });
 }
 
-// Load nav items from GitHub
+// Load navigation
 function loadGuideNav() {
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${basePath}`;
-
   fetch(apiUrl)
     .then(res => res.json())
     .then(data => {
       const navBar = document.getElementById('nav-bar');
-      navBar.innerHTML = ''; // Clear old links
+      navBar.innerHTML = ''; // Clear previous
 
       const suffix = langSuffixes[currentLanguage];
       const targetFile = `Repo Transfer_${suffix}.md`;
 
       const fileItem = data.find(item => item.name === targetFile);
+
       if (fileItem) {
-        createNavLink(fileItem.name.replace('.md', ''), fileItem.download_url);
-        loadMarkdown(fileItem.download_url); // Load on init
+        createNavLink('Repo Transfer', fileItem.download_url);
+        loadMarkdown(fileItem.download_url);
       } else {
-        navBar.innerHTML = `<p>No file found for language "${currentLanguage.toUpperCase()}"</p>`;
+        navBar.innerHTML = `<p style="color: white;">File not found for ${currentLanguage.toUpperCase()}</p>`;
         document.getElementById('content').innerHTML = '';
       }
     })
@@ -56,7 +57,7 @@ function loadGuideNav() {
     });
 }
 
-// Create nav link
+// Create link in sidebar
 function createNavLink(label, url) {
   const navBar = document.getElementById('nav-bar');
   const link = document.createElement('a');
@@ -69,7 +70,7 @@ function createNavLink(label, url) {
   navBar.appendChild(link);
 }
 
-// Load and render markdown
+// Load and display markdown
 function loadMarkdown(url) {
   fetch(url)
     .then(res => res.text())
@@ -78,7 +79,7 @@ function loadMarkdown(url) {
       document.getElementById('content').innerHTML = html;
     })
     .catch(err => {
-      console.error('Error loading markdown:', err);
+      console.error('Markdown load error:', err);
       document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
     });
 }
