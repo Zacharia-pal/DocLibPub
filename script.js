@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const fileList = document.getElementById('file-list');
     const mdContent = document.getElementById('md-content');
 
-    const repoOwner = 'YOUR_GITHUB_USERNAME'; // Your GitHub username or organization
-    const repoName = 'YOUR_REPO_NAME';        // The name of your GitHub repository
+    const repoOwner = 'Zacharia-pal';  // GitHub username
+    const repoName = 'DocLibPub';      // Repository name
 
     // Function to fetch files from GitHub repository
     function getMarkdownFiles() {
@@ -59,13 +59,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to populate the sidebar with markdown files
     function populateSidebar(files) {
+        fileList.innerHTML = ''; // Clear the sidebar
         files.forEach(file => {
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = "#";
             a.textContent = file.name;
             a.dataset.filePath = file.path;
-            a.addEventListener('click', function() {
+            a.addEventListener('click', function () {
                 loadMarkdownContent(file.path);
             });
             li.appendChild(a);
@@ -87,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    
     // Initialize the sidebar with markdown files
     getMarkdownFiles();
 });
