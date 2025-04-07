@@ -1,40 +1,40 @@
-# Public Documentation Repository
+# Openbare Documentatie Repository
 
-Welcome to the official repository for **non-data-sensitive public documentation**. This repository is designed to house and share publicly accessible content that does **not** contain any sensitive, confidential, or personal data.
+Welkom bij de officiële repository voor **niet-gevoelige openbare documentatie**. Deze repository is bedoeld om openbaar toegankelijke inhoud te beheren en te delen die **geen** gevoelige, vertrouwelijke of persoonlijke gegevens bevat.
 
-## Purpose
+## Doel
 
-The purpose of this repository is to maintain and share:
-- Guides
+Het doel van deze repository is het onderhouden en delen van:
+- Handleidingen
 - Tutorials
 - Best practices
-- Public resources
-- Technical documentation
+- Openbare bronnen
+- Technische documentatie
 
-This repository aims to provide valuable information that can be shared freely with the community, while ensuring that no data-sensitive or private information is included.
+Deze repository is bedoeld om waardevolle informatie te bieden die vrij gedeeld kan worden met de gemeenschap, met de nadruk op het vermijden van gevoelige of privé-informatie.
 
-## Data Sensitivity
+## Gegevensgevoeligheid
 
-**Important**: This repository **does not** store or manage any private, confidential, or sensitive data. If you need to store sensitive data or private information, please ensure it is kept in a secure and private location.
+**Belangrijk**: Deze repository **bevat geen** privé-, vertrouwelijke of gevoelige gegevens. Als je gevoelige informatie moet opslaan, zorg er dan voor dat dit gebeurt op een veilige en privélocatie.
 
-## Contributing
+## Bijdragen
 
-We welcome contributions to improve the documentation. If you have any suggestions or want to add a new guide, feel free to open a pull request (PR).
+We verwelkomen bijdragen om de documentatie te verbeteren. Heb je suggesties of wil je een nieuwe handleiding toevoegen? Dien dan gerust een pull request (PR) in.
 
-Please ensure that any content you add complies with the following:
-- It does not contain any confidential or private data.
-- It is publicly accessible and can be freely shared with others.
+Zorg ervoor dat alles wat je toevoegt voldoet aan het volgende:
+- Het bevat geen vertrouwelijke of privégegevens.
+- Het is openbaar toegankelijk en mag vrij gedeeld worden.
 
-## Security
+## Beveiliging
 
-If you come across any content that you believe may be sensitive or private, please **do not** add it to this repository. If you notice any issues with content already present, feel free to report it by opening an issue or contacting the repository administrators.
+Mocht je inhoud tegenkomen die mogelijk gevoelig of privé is, voeg deze dan **niet** toe aan deze repository. Als je een probleem opmerkt met bestaande inhoud, meld dit dan via een issue of neem contact op met de beheerders van de repository.
 
-## License
+## Licentie
 
-The content in this repository is open-source and available for public use. Please refer to the LICENSE file for more information on usage rights.
+De inhoud van deze repository is open-source en beschikbaar voor openbaar gebruik. Raadpleeg het LICENSE-bestand voor meer informatie over gebruiksrechten.
 
 ---
 
-By using this repository, you're agreeing to contribute to a space that prioritizes transparency and accessibility while maintaining the security and privacy of sensitive data.
+Door deze repository te gebruiken, ga je akkoord met het bijdragen aan een ruimte die transparantie en toegankelijkheid bevordert, terwijl de beveiliging en privacy van gevoelige gegevens gewaarborgd blijft.
 
-Thank you for contributing to the community!
+Bedankt voor je bijdrage aan de gemeenschap!
