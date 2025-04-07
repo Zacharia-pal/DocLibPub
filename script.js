@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    
     // Initialize the sidebar with markdown files
     getMarkdownFiles();
 });
