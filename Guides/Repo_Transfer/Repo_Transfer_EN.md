@@ -54,9 +54,6 @@ This guide explains step by step how to transfer a repository from one organizat
 - GitHub will send a notification to the new owner or organization.
 - Once the transfer is complete, the repository will appear under the new organization.
 
-![Confimation](Repo_Transfer_4.png)
-
-*Reference: the confirmation email or notification.*
 
 ---
 
