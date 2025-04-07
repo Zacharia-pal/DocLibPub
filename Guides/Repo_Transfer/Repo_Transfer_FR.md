@@ -54,10 +54,6 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 - GitHub enverra une notification au nouveau propriétaire ou à l’organisation.
 - Une fois le transfert terminé, le dépôt apparaîtra sous la nouvelle organisation.
 
-![Confirmation](Repo_Transfer_4.png)
-
-*Référence : la notification de confirmation.*
-
 ---
 
 ## **Que se passe-t-il après le transfert ?**
