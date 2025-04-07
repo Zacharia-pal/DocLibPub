@@ -39,7 +39,6 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 ## **Étape 3 : Lancer le processus de transfert**
 1. Faites défiler vers le bas jusqu’à la section **"Danger Zone"**.
 2. Cliquez sur **"Transfer ownership"**.
-   *Référence : Ajoutez ici une capture d’écran de la "Danger Zone".*
 3. Saisissez le nom du dépôt pour confirmer.
 4. Entrez le **nom de l’organisation cible** (ex : `NouvelleOrganisation`).
 5. Cliquez sur **"I understand, transfer this repository"** pour lancer le transfert.
