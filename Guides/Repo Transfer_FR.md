@@ -19,7 +19,7 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 1. Ouvrez votre navigateur et allez sur [GitHub](https://github.com/).
 2. Cliquez sur **Sign In** en haut à droite et connectez-vous avec votre nom d’utilisateur et votre mot de passe.
 
-![Login page](Repo Transfer_1.png)
+![Login page](Repo_Transfer_1.png)
 
 *Référence : la page de connexion.*
 
@@ -30,7 +30,7 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 2. Trouvez le dépôt que vous souhaitez transférer et cliquez dessus.
 3. Cliquez sur **Settings** en haut.
 
-![Settings page](Repo Transfer_2.png)
+![Settings page](Repo_Transfer_2.png)
 
 *Référence : paramètres.*
 
@@ -44,7 +44,7 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 4. Entrez le **nom de l’organisation cible** (ex : `NouvelleOrganisation`).
 5. Cliquez sur **"I understand, transfer this repository"** pour lancer le transfert.
 
-![Transfer](Repo Transfer_3.png)
+![Transfer](Repo_Transfer_3.png)
 
 *Référence : transfert.*
 
@@ -55,7 +55,7 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 - GitHub enverra une notification au nouveau propriétaire ou à l’organisation.
 - Une fois le transfert terminé, le dépôt apparaîtra sous la nouvelle organisation.
 
-![Confirmation](Repo Transfer_4.png)
+![Confirmation](Repo_Transfer_4.png)
 
 *Référence : la notification de confirmation.*
 
