@@ -19,7 +19,9 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 1. Open je browser en ga naar [GitHub](https://github.com/).
 2. Klik rechtsboven op **Sign In** en log in met je gebruikersnaam en wachtwoord.
 
-*Referentie: Voeg hier een screenshot toe van de inlogpagina.*
+![Login page](Repo_Transfer_1.png)
+
+*Referentie: inlogpagina.*
 
 ---
 
@@ -28,7 +30,9 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 2. Zoek de repository die je wilt overdragen en klik erop.
 3. Klik bovenaan op **Settings** (Instellingen).
 
-*Referentie: Voeg hier een screenshot toe van het instellingenmenu.*
+![Settings page](Repo_Transfer_2.png)
+
+*Referentie: instellingenmenu.*
 
 ---
 
@@ -40,7 +44,9 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 4. Voer de **naam van de doelorganisatie** in (bijvoorbeeld `NieuweOrganisatie`).
 5. Klik op **"I understand, transfer this repository"** om de overdracht te starten.
 
-*Referentie: Voeg hier een screenshot toe van het overdrachtsscherm.*
+![Transfer page](Repo_Transfer_3.png)
+
+*Referentie: het overdrachtsscherm.*
 
 ---
 
@@ -49,7 +55,9 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 - GitHub stuurt een melding naar de nieuwe eigenaar of organisatie.
 - Zodra de overdracht is voltooid, verschijnt de repository onder de nieuwe organisatie.
 
-*Referentie: Voeg hier een screenshot toe van de bevestigingsmail of melding.*
+![Confirmation page](Repo_Transfer_4.png)
+
+*Referentie: de bevestigingsmail of melding.*
 
 ---
 
