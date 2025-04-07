@@ -1,6 +1,6 @@
 const owner = 'Zacharia-pal';
 const repo = 'DocLibPub';
-const basePath = '';
+const basePath = 'Guides/Repo_Transfer';
 let currentLanguage = 'en'; // Default
 
 // Language suffix map
