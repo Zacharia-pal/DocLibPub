@@ -39,7 +39,6 @@ This guide explains step by step how to transfer a repository from one organizat
 ## **Step 3: Start the Transfer Process**
 1. Scroll down to the **"Danger Zone"** section.
 2. Click **"Transfer ownership"**.
-   *Reference: Add a screenshot of the "Danger Zone" section here.*
 3. Enter the name of the repository to confirm.
 4. Enter the **name of the target organization** (e.g., `NewOrganization`).
 5. Click **"I understand, transfer this repository"** to start the transfer.
