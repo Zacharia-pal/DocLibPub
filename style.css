@@ -24,20 +24,6 @@ header h1 {
   font-size: 1.5em;
 }
 
-#language-selector button {
-  margin-left: 10px;
-  padding: 6px 10px;
-  font-size: 0.9em;
-  cursor: pointer;
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#language-selector button:hover {
-  background-color: #e0e0e0;
-}
-
 /* Main layout */
 main {
   display: flex;
@@ -52,6 +38,10 @@ nav#nav-bar {
   color: white;
   padding: 10px;
   overflow-y: auto;
+}
+
+nav#nav-bar h2 {
+  margin-top: 0;
 }
 
 nav#nav-bar a {
