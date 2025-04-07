@@ -1,18 +1,22 @@
+/* Layout base */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: #fff;
 }
 
+/* Header */
 header {
-  background-color: #333;
-  color: white;
+  background-color: #ffffff;
+  color: #000;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
 header h1 {
@@ -25,41 +29,55 @@ header h1 {
   padding: 6px 10px;
   font-size: 0.9em;
   cursor: pointer;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
+#language-selector button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Layout split */
 main {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
+/* Sidebar nav */
 nav#nav-bar {
-  width: 200px;
-  background: #f4f4f4;
-  border-right: 1px solid #ccc;
+  width: 220px;
+  background-color: #002f5f; /* dark blue */
+  color: white;
   padding: 10px;
   overflow-y: auto;
 }
 
 nav#nav-bar a {
   display: block;
-  color: #333;
+  color: white;
   text-decoration: none;
-  padding: 6px 4px;
+  padding: 8px 6px;
   margin-bottom: 4px;
   border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
 nav#nav-bar a:hover {
-  background-color: #ddd;
+  background-color: #004080;
 }
 
+/* Content area */
 #content {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+  background-color: white;
+  color: #000;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   main {
     flex-direction: column;
