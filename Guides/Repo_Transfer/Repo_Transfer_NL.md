@@ -54,10 +54,6 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 - GitHub stuurt een melding naar de nieuwe eigenaar of organisatie.
 - Zodra de overdracht is voltooid, verschijnt de repository onder de nieuwe organisatie.
 
-![Confirmation page](Repo_Transfer_4.png)
-
-*Referentie: de bevestigingsmail of melding.*
-
 ---
 
 ## **Wat gebeurt er na de overdracht?**
