@@ -39,7 +39,6 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 ## **Stap 3: Start het overdrachtsproces**
 1. Scroll helemaal naar beneden tot je bij de sectie **"Danger Zone"** komt.
 2. Klik op de knop **"Transfer ownership"** (Eigendom overdragen).  
-   *Referentie: Voeg hier een screenshot toe van de "Danger Zone".*
 3. Voer de naam van de repository in ter bevestiging.
 4. Voer de **naam van de doelorganisatie** in (bijvoorbeeld `NieuweOrganisatie`).
 5. Klik op **"I understand, transfer this repository"** om de overdracht te starten.
