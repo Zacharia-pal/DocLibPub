@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                console.log('API Response:', data); // Debugging line
                 const mdFiles = [];
                 data.forEach(item => {
                     if (item.type === 'file' && item.name.endsWith('.md')) {
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                console.log('Directory API Response:', data); // Debugging line
                 data.forEach(item => {
                     if (item.type === 'file' && item.name.endsWith('.md')) {
                         mdFiles.push({
@@ -59,7 +61,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to populate the sidebar with markdown files
     function populateSidebar(files) {
+        console.log('Files to display:', files); // Debugging line
         fileList.innerHTML = ''; // Clear the sidebar
+        if (files.length === 0) {
+            fileList.innerHTML = '<p>No markdown files found.</p>';
+        }
         files.forEach(file => {
             const li = document.createElement('li');
             const a = document.createElement('a');
