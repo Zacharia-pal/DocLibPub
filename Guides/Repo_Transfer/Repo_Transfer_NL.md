@@ -63,6 +63,17 @@ Deze handleiding legt stap voor stap uit hoe je een repository overdraagt van de
 
 ---
 
+## **Let op:**
+*Individuele gebruikers, teams en apps worden verwijderd uit de volgende opties:*
+
+- Repository-regelset omzeilers  
+- Omzeilers van pull requests op beveiligde branches  
+- Bevoegde reviewers die pull request-beoordelingen op beveiligde branches kunnen negeren  
+- Bevoegde pushers op beveiligde branches  
+- Toegestane force pushers op beveiligde branches
+
+---
+
 ## **Veelvoorkomende Problemen & Oplossingen**
 | Probleem | Oplossing |
 |----------|----------|
