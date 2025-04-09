@@ -63,6 +63,17 @@ Ce guide explique, étape par étape, comment transférer un dépôt d’une org
 
 ---
 
+##**Veuillez noter :**  
+*Les utilisateurs individuels, les équipes et les applications seront supprimés des options suivantes :*
+
+- Contournement des règles du dépôt  
+- Contournement des pull requests sur les branches protégées  
+- Annulation autorisée des revues de pull requests sur les branches protégées  
+- Pushs autorisés sur les branches protégées  
+- Force pushs autorisés sur les branches protégées
+
+---
+
 ## **Problèmes courants et solutions**
 | Problème | Solution |
 |----------|----------|
