@@ -64,6 +64,17 @@ This guide explains step by step how to transfer a repository from one organizat
 
 ---
 
+## **Please note:**
+*Individual users, teams, and apps will be removed from the following options:*
+
+Repository ruleset bypassers
+Protected branch pull request bypassers
+Protected branch authorized pull request review dismissers
+Protected branch authorized pushers
+Protected branch allowed force pushers
+
+---
+
 ## **Common Issues & Solutions**
 | Issue | Solution |
 |----------|----------|
